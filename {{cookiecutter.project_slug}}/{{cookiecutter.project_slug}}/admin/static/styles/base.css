@@ -1,0 +1,33 @@
+* {
+	box-sizing: border-box;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+*::before,
+*::after {
+	box-sizing: inherit;
+	background-position: inherit;
+	background-repeat: inherit;
+}
+
+p {
+	margin: 0;
+}
+
+body {
+  margin: 0;
+  background: #F3F6FA;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+}
+
+
+#app {
+  font-family: 'YS Text','Helvetica Neue',Arial,sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+}

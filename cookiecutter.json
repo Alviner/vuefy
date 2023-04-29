@@ -1,0 +1,13 @@
+{
+  "author_name": "Ivan Sitkin",
+  "author_email": "alvinera@yandex.ru",
+  "project_name": "Vue aiohttp",
+  "project_namespace": "Alviner",
+  "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
+  "project_description": "Vue Admin Panel",
+  "_copy_without_render": [
+    "*.vue",
+    "*.css",
+    "*.js"
+  ]
+}
