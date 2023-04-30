@@ -1,40 +1,13 @@
-(async function (ctx) {
-
-  function loadScript(jsText) {
-    var promise = new Promise(function (resolve, reject) {
-      var script = document.createElement("script");
-      var src = window.URL.createObjectURL(
-        new Blob([jsText], {
-          type: "application/javascript",
-        })
-      );
-
-      script.src = src;
-      script.onload = resolve;
-      document.head.appendChild(script);
-    });
-    return promise;
-  }
-  async function loadJS(url) {
-    var response = await fetch(url);
-    const source = await response.text();
-    await loadScript(source)
-  }
-
+(function (ctx) {
   function append2Head(element) {
-    document.head.appendChild(element)
+    document.head.append(element)
   }
 
-  var body = document.getElementsByTagName("body")[0];
-  ctx.components = {};
-  ctx.mixins = {};
-
-  async function loadComponent(el) {
-    var response = await fetch(el.getAttribute("src"));
+  async function processSFC(response) {
     const source = await response.text();
     const element = document.createElement("div");
     element.innerHTML = source;
-    let component = "";
+    let component = "export default {}";
     Array.from(element.children).forEach(item => {
       switch (item.nodeName) {
         case 'TEMPLATE':
@@ -48,17 +21,22 @@
           break;
       }
     })
-    await loadScript(component);
+    return new Response(new Blob([component], {type: 'application/javascript'}))
   }
 
-  var components = $("script[type='text/x-component']");
+  ctx.esmsInitOptions = {
+    fetch: async function (url, options) {
+      const res= await fetch(url, options);
+      if (!res.ok) {
+        return res
+      }
 
-  for (let i = 0; i < components.length; i++) {
-    let el = components[i];
-    await loadComponent(el);
+      if (res.url.endsWith('.vue')) {
+        return await processSFC(res)
+      }
+      return res;
+    },
   }
-
-
-  await loadJS("/static/main.js");
-  console.log("Application loaded");
-})(window);
+/*global globalThis*/
+/*eslint no-undef: "error"*/
+})(globalThis);

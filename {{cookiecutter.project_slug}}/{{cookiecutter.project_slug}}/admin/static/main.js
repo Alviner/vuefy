@@ -1,27 +1,24 @@
-(function (ctx) {
-  const {Home} = ctx.components;
-  const {wsrpc} = ctx;
-  
-  Vue.prototype.$wsrpc = wsrpc.proxy;
-  Vue.prototype.$json = (any) => JSON.stringify(any, null, 2);
 
-  Vue.use(VueRouter);
-  Vue.use(ELEMENT);
+import { createApp, elementPlus, elementPlusLocale as locale } from 'vendor';
 
-  const router = new VueRouter({
-		mode: 'history',
-		routes: [
-			{
-				path: '/',
-				name: 'home',
-				component: Home,
-			},
-		]
-	});
+import App from './App.js';
+import wsrpc from './api/ws.js';
+import router from './router.js ';
 
-  ctx.app = new Vue({
-    router,
-    el: '#app',
-  })
-})(window)
+const app = createApp({
+  ...App,
+  beforeCreate: function () {
+    wsrpc.connect();
+  },
+});
+
+app.config.globalProperties.$wsrpc = wsrpc.proxy;
+app.config.globalProperties.$json = (any) => JSON.stringify(any, null, 2);
+
+app
+  .use(router)
+  .use(elementPlus, { locale })
+  .mount('#app');
+
+export default app;
 

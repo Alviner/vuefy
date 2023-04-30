@@ -6,4 +6,4 @@ Cookiecutter for aiohttp with ws and vue as front part
 
 1. Python ~3.11
 1. Cookiecutter ~2.0
-1. Java RT to use closure compiler
+1. Yarn to build vendor

@@ -15,7 +15,7 @@ async def test_static_file(api_client):
     async with api_client.get('/static/main.js') as resp:
         assert resp.status == HTTPStatus.OK
         body = await resp.text()
-        assert 'new Vue' in body
+        assert 'createApp' in body
 
 
 async def test_not_found_static_file(api_client):

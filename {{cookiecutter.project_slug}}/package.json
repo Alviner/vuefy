@@ -1,0 +1,33 @@
+{
+  "license": "unlicence",
+  "private": true,
+  "scripts": {
+    "build": "node buildVendor.js",
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.0.10",
+    "@wsrpc/client": "4.4.1",
+    "element-plus": "^2.2.32",
+    "es-module-shims": "1.7.0",
+    "esbuild": "0.17.10",
+    "vue": "3.2.47",
+    "vue-router": "4.1.6"
+  },
+  "devDependencies": {
+    "@luncheon/esbuild-plugin-gzip": "^0.1.0",
+    "eslint": "^8.34.0",
+    "eslint-plugin-vue": "^9.9.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "not IE 11",
+    "not op_mini all",
+    "not samsung 12",
+    "not and_uc 12",
+    "not ios_saf 12.2",
+    "not ios_saf 13.4"
+  ],
+  "node": "^12.22.0 || ^14.17.0 || >=16.0.0"
+}
