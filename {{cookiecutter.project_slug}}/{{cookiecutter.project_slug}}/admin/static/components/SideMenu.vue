@@ -9,11 +9,9 @@
 </template>
 
 <script>
-(function (ctx) {
-	ctx.components.SideMenu = {
-		template: '#side-menu',
-	};
-})(window);
+export default {
+	template: '#side-menu',
+};
 </script>
 
 

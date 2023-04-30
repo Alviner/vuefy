@@ -16,42 +16,40 @@
 </template>
 
 <script>
-(function (ctx) {
-  const {SideMenu} = ctx.components;
+import SideMenu from '../components/SideMenu.vue';
 
-  ctx.components.Home = {
-    template: '#home-tpl',
-    components: {SideMenu},
-    data () {
-      return {
-        envData: undefined,
-        pingData: undefined,
-        version: undefined,
-      };
+export default {
+  template: '#home-tpl',
+  components: {SideMenu},
+  data () {
+    return {
+      envData: undefined,
+      pingData: undefined,
+      version: undefined,
+    };
+  },
+  computed: {},
+  async created () {
+    await this.loadEnv();
+    await this.getVersion();
+  },
+  methods: {
+    async loadEnv () {
+      try {
+        this.envData = await this.$wsrpc.env.load();
+      } catch (e) {
+        console.error(e);
+      }
     },
-    computed: {},
-    async created () {
-      await this.loadEnv();
-      await this.getVersion();
+    async getVersion () {
+      try {
+        const resp = await fetch('/api/v1/ping');
+        this.version = resp.headers.get('X-VERSION');
+        this.pingData = await resp.json();
+      } catch (e) {
+        console.error(e);
+      }
     },
-    methods: {
-      async loadEnv () {
-        try {
-          this.envData = await this.$wsrpc.env.load();
-        } catch (e) {
-          console.error(e);
-        }
-      },
-      async getVersion () {
-        try {
-          const resp = await fetch('/api/v1/ping');
-          this.version = resp.headers.get('X-VERSION');
-          this.pingData = await resp.json();
-        } catch (e) {
-          console.error(e);
-        }
-      },
-    },
-  };
-})(window);
+  },
+};
 </script>

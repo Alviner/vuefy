@@ -7,7 +7,6 @@
   "project_description": "Vue Admin Panel",
   "_copy_without_render": [
     "*.vue",
-    "*.css",
-    "*.js"
+    "*.css"
   ]
 }

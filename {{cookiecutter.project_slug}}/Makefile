@@ -40,6 +40,7 @@ lint:
 format:
 	poetry run gray $(PROJECT_PATH) tests
 	poetry run ruff $(PROJECT_PATH) tests --fix
+	yarn lint-fix
 
 purge: clean
 	rm -rf ./.venv
@@ -60,6 +61,7 @@ upload: build
 develop: clean
 	poetry -V
 	poetry install
+	yarn install
 
-vendor:
-	poetry run $(PROJECT_PATH)_vendor 
+build-vendor:
+	yarn build
